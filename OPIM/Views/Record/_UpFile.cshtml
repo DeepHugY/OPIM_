@@ -1,0 +1,64 @@
+﻿<div class="modal fade" id="upFileModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="custom-closed close" data-dismiss="modal"
+                   aria-hidden="true">
+                </i>
+             
+                    <div class="custom-login-title text-center">
+                        <div class="fontl" style="float:inherit">上传记录</div>
+                        <div class="custom-clear"></div>
+                    </div>
+         
+            </div>
+            <div class="modal-body">
+                <div class="gtco-container">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">上传</label>
+                        <div class="col-sm-8">
+                            <input type="file" id="upload" value="选择文件" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="text-center">
+                    <button class="btn btn-success btn-rounded" type="button"data-dismiss="modal" aria-hidden="true"><i class="fa fa-info-circle"></i>关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#upload').change(function () {
+        var val = $(this).val();
+        $.ajax({
+            datatype: 'json',
+            type: 'post',
+            url: '/Record/AddFromCsv',
+            data: { path: val },
+            success: function (data) {
+                if (data.success) {
+                    totar.success("上传成功");
+                }
+            }
+        });
+    });
+    function getPath(obj) {
+        if (obj) {
+            if (window.navigator.userAgent.indexOf("MSIE") >= 1) {
+                obj.select();
+                return document.selection.createRange().text;
+            }
+            else if (window.navigator.userAgent.indexOf("Firefox") >= 1) {
+                if (obj.files) {
+                    return obj.files.item(0).getAsDataURL();
+                }
+                return obj.value;
+            }
+            return obj.value;
+        }
+    }
+    //参数obj为input file对象
+</script>

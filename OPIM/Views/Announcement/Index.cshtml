@@ -1,0 +1,150 @@
+﻿
+@{
+    ViewBag.Title = "公告管理";
+}
+<div class="panel-body OPIM-panel-body form-horizontal">
+    <div class="row" id="toolbar">
+        <div class="col-sm-8">
+            <div class="btn-group">
+                <a class="btn btn-default btn-sm" id="refresh">
+                    <i class="fa fa-refresh"></i>
+                    刷新
+                </a>
+                @if (ViewBag.IsAdmin)
+                {
+                    <a class="btn btn-default btn-sm" id="add" url="/Announcement/Add">
+                        <i class="fa fa-plus"></i>
+                        添加
+                    </a>
+                    <a class="btn btn-default btn-sm" id="edit" url="/Announcement/Update">
+                        <i class="fa"></i>
+                        修改
+                    </a>
+                    <a class="btn btn-default btn-sm" id="remove">
+                        <i class="fa fa-trash-o"> </i>
+                        删除
+                    </a>
+                }
+
+            </div>
+            <input type="hidden" id="openModal" data-toggle="modal" data-target="#announcementManageModal" />
+        </div>
+        <div class="col-sm-4 text-right">
+            <div class="input-group">
+                <input type="text" class="form-control input-sm" placeholder="请输入搜索内容" id="search_content" />
+                <span class="input-group-btn">
+                    <button id="serch_btn" class="btn btn-sm btn-default">
+                        搜索
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <table id="table"
+           data-toggle="table"
+           data-method="get"
+           data-url="/Announcement/_AnnouncementGrid"
+           data-pagination="true"
+           data-page-number="1"
+           data-page-size="10"
+           data-single-select="true"
+           data-sort-name="CreateOn"
+           data-sort-order="asc"
+           data-content-type="application/x-www-form-urlencoded"
+           data-side-pagination="server"
+           data-unique-id="Id"
+           data-click-to-select="true"
+           data-page-list="[10,20,30,50]"
+           data-query-params-type="limits"
+           data-toolbar="#toolbar"
+           data-query-params="QueryParams">
+        <thead>
+            <tr>
+                <th data-visible="false" data-field="Id">Id</th>
+                <th data-checkbox="true"></th>
+                <th data-field="Title" data-width="200">标题</th>
+                <th data-field="Contents" data-width="450">内容</th>
+                <th data-field="CreateOn" data-formatter="FormatTime">创建时间</th>
+
+            </tr>
+        </thead>
+    </table>
+</div>
+@Html.Partial(@"~/Views/Announcement/_AnnouncementManage.cshtml")
+
+<script>
+    $(function () {
+        toastr.options = {
+            positionClass: "toast-top-center"
+        };
+    });
+    var openModal = $('#openModal');
+    $('#refresh').on('click', function () {
+        $('#table').bootstrapTable("refresh");
+    });
+    $('#add').on('click', function () {
+        openModal.click();
+        var url = $(this).attr("url");
+        $('#announcementForm').attr("action", url);
+    });
+    $('#edit').on('click', function () {
+        var url = $(this).attr("url");
+        $('#announcementForm').attr("action", url)
+        var model = $('#table').bootstrapTable('getSelections');
+        if (model.length < 1) {
+            toastr.error("请先选择需要修改的信息");
+        } else {
+            openModal.click();
+            FileAnnouncementMessage(model[0]);
+        }
+    });
+    $('#remove').on('click', function () {
+        var row = $('#table').bootstrapTable('getSelections');
+        if (row.length < 1) {
+            toastr.error("请先选择需要删除的信息");
+        } else {
+            $.ajax({
+                url: "/Announcement/Delete",
+                dataType: "json",
+                type: "post",
+                data: { "id": row[0].Id },
+                success: function (result) {
+                    if (result.Success) {
+                        $('#table').bootstrapTable("refresh");
+                        toastr.success("删除成功");
+                    }
+                }
+            });
+        }
+    });
+    $('#serch_btn').on('click', function () {
+        $('#table').bootstrapTable("refresh");
+    });
+    function QueryParams(params) {
+        var temp = {
+            pageSize: params.pageSize,
+            pageIndex: params.pageNumber,
+            search: $('#search_content').val(),
+            orderType: params.sortOrder,
+            orderBy: params.sortName
+        };
+        return temp;
+    }
+    //function FormatInOrOut(value, row, index) {
+    //    if (value == "0")
+    //        return "<lable class='label-success'>收入</lable>";
+    //    if (value == "1") {
+    //        return "<lable class='label-default'>支出</lable>";
+    //    }
+    //}
+    function FormatTime(value, row, index) {
+        var date = new Date(parseInt(row.CreateOn.replace("/Date(", "").replace(")/", ""), 10));
+        var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+        var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+        return date.getFullYear() + "-" + month + "-" + currentDate;
+    }
+
+    function DetailFormatter(index, row) {
+        return row.Content;
+    }
+</script>

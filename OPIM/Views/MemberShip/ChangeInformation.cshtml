@@ -1,0 +1,215 @@
+﻿
+@{
+    ViewBag.Title = "个人中心";
+}
+<link href="~/Content/cropper.min.css" rel="stylesheet" />
+<link href="~/Content/cropper.main.css" rel="stylesheet" />
+<script src="~/scripts/cropper.min.js"></script>
+<script src="~/scripts/crop_main.js"></script>
+<ul class="nav nav-tabs">
+    <li class="active">
+        <a data-toggle="tab" href="#changeInfo"><i class="fa fa-user"></i>修改资料</a>
+    </li>
+    <li class="">
+        <a data-toggle="tab" href="#changeIcon"><i class="fa fa-user"></i>修改头像</a>
+    </li>
+    <li class="">
+        <a data-toggle="tab" href="#changePassword"><i class="fa fa-user"></i>修改密码</a>
+    </li>
+</ul> 
+<div class="tab-content">
+    <input type="hidden" id="Id" value="@ViewBag.MemberShip.Id" />
+    <div id="changeInfo" class="tab-pane active">
+        <div class="panel-body OPIM-panel-body form-horizontal">
+           
+            <div class="form-group">
+                <label class="col-sm-2 control-label">昵称</label>
+                <div class="col-sm-4">
+                    <input type="text" id="NickName" class="form-control" maxlength="10" value="@ViewBag.MemberShip.NickName" />
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-2 control-label">性别</label>
+                <div class="col-sm-10">
+                    <input type="radio" id="Male" name="Sex" value="0" title="女" checked="checked"/>&nbsp;女&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" id="Female" name="Sex" value="1" title="男" />&nbsp;男
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">出生日期</label>
+                <div class="col-sm-4">
+                    <input type="date" id="date" class="form-control" value="" onchange="SetBirthOn()"/>
+                </div>
+                <input type="hidden" id="BirthOn" value="@ViewBag.MemberShip.BirthOn"/>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">手机</label>
+                <div class="col-sm-4">
+                    <input type="tel" id="Phone" class="form-control" value="@ViewBag.MemberShip.Phone"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">邮箱</label>
+                <div class="col-sm-4">
+                    <input type="email" id="Email" class="form-control" value="@ViewBag.MemberShip.Email"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="button" class="btn btn-success col-sm-offset-4" id="submitChangeInfo" value="确认修改" />
+            </div>
+        </div>
+    </div>
+
+    <div id="changeIcon" class="tab-pane fade">
+        <div class="panel-body OPIM-panel-body form-horizontal">
+            <div class="form-group ">
+               
+                <div class="col-sm-12 text-center">
+                    @if (ViewBag.MemberShip.Icon == null)
+                    {
+                        <img id="icon" alt="image" class="img-circle" style="width:120px;height:120px" src = "~/Image/yl.jpg">
+                    }
+                    else
+                    {
+                        <img id="icon" alt="image" class="img-circle" style="width:120px;height:120px" src="@ViewBag.MemberShip.Icon">
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="line"></div>
+            </div>
+            <div class="row">
+                <div class="container" id="crop-avatar">
+                    <div class="" id="avatar-modal">
+                                @*@using (Html.BeginForm("UploadIcon", "Permission", FormMethod.Post, new { @enctype = "multipart/form-data", @class = "avatar-form" }))*@
+                                @using (Html.BeginForm("UploadIcon", "MemberShip", FormMethod.Post, new { @enctype = "multipart/form-data", @class = "avatar-form" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="modal-body">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-content">
+                                                <div class="row">
+                                                    <div class="row">
+                                                        <div class="col-md-9">
+                                                            <h4>图片预览：</h4>
+                                                            <div class="zlkj-avatar-wrapper">
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <h4>裁剪后：</h4>
+                                                            <div class="avatar-preview preview-lg"></div>
+                                                            <div class="avatar-preview preview-md"></div>
+                                                            <div class="avatar-preview preview-sm"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row avatar-btns">
+                                                        <div class="zlkj-btn-group ">
+                                                            @*@Html.HiddenFor(model => model.Icon, new { @class = "avatar-src", @name = "avatar_src" })
+                                                           @Html.HiddenFor(model => model.Icon, new { @class = "avatar-data", @name = "avatar_data" })*@
+                                                            <input type="hidden" id="avatarMemberShip" value="" />
+                                                            <label title="打开图片" for="avatarInput" class="btn btn-primary">
+                                                                <input type="file" name="avatar_file" id="avatarInput" class="avatar-input hide"> 打开图片
+                                                            </label>
+                                                            <div class="btn-group">
+                                                                <button class="btn btn-warning" data-method="zoom" data-option="0.1" type="button">放大</button>
+                                                                <button class="btn btn-warning" data-method="zoom" data-option="-0.1" type="button">缩小</button>
+                                                                <button class="btn btn-warning" data-method="rotate" data-option="-45" type="button">左旋转</button>
+                                                                <button class="btn btn-warning" data-method="rotate" data-option="45" type="button">右旋转</button>
+                                                                <button class="btn btn-warning" data-method="getCroppedCanvas" data-option="crop" id="getCroppedCanvas" type="button">裁剪</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" id="submit">确认提交</button>
+                                    </div>
+                                }
+                    </div>
+                </div>
+                
+            </div>
+           
+        </div>
+    </div>
+    <div id="changePassword" class="tab-pane fade">
+        <div class="panel-body OPIM-panel-body form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">输入原密码：</label>
+                <input type="password" class="form-control col-sm-9" id="password" />
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">输入新密码：</label>
+                <input type="password" class="form-control col-sm-9" id="newPassword" />
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">确认新密码：</label>
+                <input type="password" class="form-control col-sm-9" id="reNewPassword" />
+            </div>
+            <div class="form-group">
+                <input type="button" class="btn btn-success col-sm-offset-9" id="submitChangePassword" value="确认修改" />
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#submitChangeInfo').on('click', function () {
+        var id = $('#Id').val();
+        var nickName = $('#NickName').val();
+        var birthOn = $('#BirthOn').val();
+        var phone = $('#Phone').val();
+        var email = $('#Email').val();
+        var sex = $('input[name="Sex"]:checked').val();
+        $.ajax({
+            url: "/MemberShip/UpdateInformation",
+            datatype: "json",
+            type: "post",
+            data: { id: id, nickName: nickName, nickName: nickName, birthOn: birthOn, phone: phone, email: email, sex: sex },
+            success: function (result) {
+                if (result.Success) {
+                    toastr.success("修改成功");
+                } else {
+                    toastr.error("修改失败");
+                }
+            },
+            error: function () {
+                toastr.error("数据提交失败");
+            }
+        });
+    });
+
+    $('#submitChangePassword').on('click', function () {
+        var id = $('#Id').val();
+        var password = $('#password').val();
+        var newPassword = $('#newPassword').val();
+        var reNewPassword = $('#reNewPassword').val();
+        $.ajax({
+            url: "/MemberShip/ChangePassword",
+            datatype: "json",
+            type: "post",
+            data: { id: id, password: password, newPassword: newPassword, reNewPassword: reNewPassword},
+            success: function (result) {
+                if (result.Success) {
+                    toastr.success("修改成功");
+                } else {
+                    toastr.error("修改失败");
+                }
+            },
+            error: function () {
+                toastr.error("数据提交失败");
+            }
+        });
+    });
+
+
+
+    function SetBirthOn() {
+        var value = $('#date').val();
+        alert(value);
+        $('#BirthOn').val(value);
+    }
+</script>

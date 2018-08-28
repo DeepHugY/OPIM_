@@ -1,0 +1,73 @@
+﻿@model OPIM_Common.DataModels.RecordsModel
+<div class="modal fade" id="recordManageModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="custom-closed close" data-dismiss="modal"
+                   aria-hidden="true">
+                </i>
+                <div class="modal-header">
+                    <div class="custom-login-title text-center">
+                        <div class="fontl" style="float:inherit">类目管理</div>
+                        <div class="custom-clear"></div>
+                    </div>
+                </div>
+            </div>
+            @using (Ajax.BeginForm("", "",
+               new AjaxOptions { HttpMethod = "POST",  OnSuccess = "RecordSuccess", OnFailure = "RecordFailure" },
+               new { @class = "form-horizontal", @role = "form", @id = "recordForm" }))
+            {
+                @*@Html.AntiForgeryToken()*@
+                <div class="modal-body">
+                    <div class="gtco-container">
+                        @Html.HiddenFor(model=>model.Id)
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">类型</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="TypeName"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">金额</label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(model => model.Money, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">备注</label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(model=>model.Remark,new { @class="form-control"})
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button class="btn btn-success btn-rounded" type="submit" id="submitRecordManage"><i class="fa fa-info-circle"></i>提交操作</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script>
+
+    function FileRecordMessage(model) {
+        $('#Id').val(model.Id);
+        $('#TypeName').val(model.TypeName);
+        $('#Money').val(model.Money);
+        $('#Remark').val(model.Remark);
+    }
+    function RecordSuccess(result) {
+        if (result.Success) {
+            toastr.success("操作成功");
+            $('#recordManageModal').modal("hide");
+            $('#table').bootstrapTable("refresh");
+        } else {
+            toastr.error("操作失败");
+        }
+    }
+    function RecordFailure() {
+        toastr.error("数据提交失败");
+    }
+</script>

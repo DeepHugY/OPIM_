@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Online Personal Income Management System</title>
+
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap-table.min.css" rel="stylesheet" />
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <link href="~/Content/OPIM.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/cropper.main.css" rel="stylesheet" />
+    <link href="~/Content/cropper.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/scripts/Inits/init-sharedatas.js"></script>
+    <script src="~/scripts/Inits/init-searchdate.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/scripts/bootstrap-table.js"></script>
+    <script src="~/scripts/bootstrap-table-zh-CN.js"></script>
+    <script src="~/scripts/toastr.js"></script>
+    <script src="~/scripts/cropper.min.js"></script>
+    <script src="~/scripts/crop_main.js"></script>
+    <script src="~/scripts/Echarts.min.js"></script>
+
+
+</head>
+<body>
+    <div class="navbar navbar-fixed-top nav-bar">
+        <div class="container">
+            <div class="nav-logo">
+                <img src="~/Image/logo.png" />
+            </div>
+            <div class="nav-item">
+                <div class="navbar-header">
+                    @Html.ActionLink("首页", "Index", "Record", new { area = "" }, new { @class = "navbar-brand navbar-ul" })
+                    @Html.ActionLink("报表", "Index", "Report", new { area = "" }, new { @class = "navbar-brand navbar-ul" })
+                    @Html.ActionLink("预算", "Index", "Budget", new { area = "" }, new { @class = "navbar-brand navbar-ul" })
+                    @Html.ActionLink("个人中心", "ChangeInformation", "MemberShip", new { area = "" }, new { @class = "navbar-brand navbar-ul" })
+                    @if (ViewBag.IsAdmin)
+                    {
+                        <a href="##" data-toggle="dropdown" class="dropdown-toggle navbar-brand navbar-ul">管理中心<span class="caret"></span></a>
+                        <ul class="dropdown-menu" style="top:40px;left:690px;">
+                            <li>
+                                <a href="##">
+                                    @Html.ActionLink("公告管理", "Index", "Announcement", new { area = "" }, new { @class = "" })
+                                </a>
+                            </li>
+                            <li>
+                                <a href="##">
+                                    @Html.ActionLink("用户管理", "Manage", "MemberShip", new { area = "" }, new { @class = "" })
+                                </a>
+                            </li>
+                            <li>
+                                <a href="##">
+                                    @Html.ActionLink("权限管理", "Manage", "Permission", new { area = "" }, new { @class = "" })
+                                </a>
+                            </li>
+                        </ul>
+                    }
+                </div>
+            </div>
+            <div class="navbar-right">
+                <ul class="nav navbar-right m-t-s">
+                    <li class="dropdown f-l">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                            <span class="hidden-xs" style="font-size:18px">
+                                <i class="fa fa-bell"></i>
+                            </span>
+
+                        </a>
+                        <ul class="dropdown-menu dropdown-alerts dropdown-ul-container">
+                            <li class="m-t-xs border-bottom">
+                                <div class="dropdown-messages-box">
+                                    <a href="#" class="pull-left">
+                                        <img alt="image" class="img-circle" id="AnnIcon" src="~/Image/user.jpg" style="height:60px;width:60px;margin-right:3px" />
+                                    </a>
+                                    <div class="media-body">
+                                        <strong id="AnnNickName">救护用的垃圾车</strong>
+                                        <small class="text-muted">2018.04.12</small>
+                                        <br>
+                                        <div style="width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
+                                            <a class="J_menuItem" href="/ShortMessage/ShortMessageBox" style="padding-left:5px;">
+                                                这是一条测试信息
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="text-center link-block">
+                                    <a class="J_menuItem" href="/ShortMessage/ShortMessageCompose">
+                                        <i class="fa fa-eye"></i> <strong>查看全部</strong>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown f-l">
+                        <a href="/Home/LoginOff" class="dropdown-toggle count-info">
+                            <span class="hidden-xs" style="font-size:18px">
+                                <i class="fa fa-power-off"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content ">
+        <div class="content-board">
+            <div class="content-padding">
+                <div class="box content-left">
+                    @RenderBody()
+                </div>
+                <div class="box content-right">
+                    <div class="col-sm-12  text-center">
+                        <a href="#">
+                            <img id="shareIcon" src="~/Image/yl.jpg" class="img-circle" />
+                            @*<img class="img-circle" src="~/Uploads/Icons/302522175/201805020523058279.png" />*@
+                        </a>
+                    </div>
+                    <div class="col-sm-12 text-center">
+                        <h4><a href="#" id="shareNickName">救护用的垃圾车</a></h4>
+                        <p id="shareAge">账龄：1天</p>
+                    </div>
+                    <div class="col-sm-12 line"></div>
+                    <div class="col-sm-12">
+                        <div class="p-tb-m">
+                            <div class="col-sm-12 p-t-m">
+                                <span>本月已支出：</span><h4 style="display:inline" id="shareOut"> 521 </h4>元
+                            </div>
+                            <div class="col-sm-12 p-t-m">
+                                <span>本月已收入：</span><h4 style="display:inline" id="shareIn"> 1000 </h4>元
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 line"></div>
+                    <div class="col-sm-12">
+                        <h4>本月消费比例</h4>
+                        <div id="echart" style="width: 250px;height:200px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <footer style="padding-top:20px;">
+            <hr />
+            <p>&copy; @DateTime.Now.Year - Online Personal Income Management System</p>
+        </footer>
+    </div>
+
+</body>
+</html>
+<script>
+    $(function () {
+        toastr.options = {
+            positionClass: "toast-top-center"
+        };
+    });
+    var myChart = echarts.init(document.getElementById('echart'));
+    myChart.setOption({
+        tooltip: {
+            trigger: 'item',
+            formatter: "{b} : {c} ({d}%)"
+        },
+        series: [{
+            name: "消费比例",
+            type: 'pie',
+            radius: '55%',
+            center: ['50%', '50%'],
+            data: [
+                { value: 0, name: '无' },
+            ]
+        }]
+    });
+    function fileEchartsData(myChart) {
+        $.ajax({
+            dataType:"json",
+            type: "post",
+            url: "/Others/GetTypesWithRecordSum",
+            dataType: "json",
+            success: function (data) {
+                if (data.Success) {
+                    var servicedata = [];
+                    var length = data.List.length;
+                    for (var i = 0; i < length; i++) {
+                        var obj = new Object();
+                        obj.name = data.List[i].Type;
+                        obj.value = data.List[i].Sum;
+                        servicedata[i] = obj;
+                    }
+                    myChart.setOption({
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: "{b} : {c} ({d}%)"
+                        },
+                        series: [{
+                            name: "消费比例",
+                            type: 'pie',
+                            radius: '55%',
+                            center: ['50%', '50%'],
+                            data: servicedata,
+                        }]
+                    });
+                }
+            }
+        });
+    }
+    fileEchartsData(myChart);
+</script>

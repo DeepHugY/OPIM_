@@ -1,0 +1,275 @@
+﻿@{
+    ViewBag.Title = "报表";
+}
+
+<ul class="nav nav-tabs">
+    <li class="active">
+        <a data-toggle="tab" href="#countReport"><i class="fa fa-user"></i>收支统计</a>
+    </li>
+    <li class="">
+        <a data-toggle="tab" href="#annualReport"><i class="fa fa-user"></i>年度报表</a>
+    </li>
+</ul>
+<div class="tab-content">
+    <div id="countReport" class="tab-pane active">
+        <div class="panel-body OPIM-panel-body form-horizontal">
+            <div class="table-title m-b-m">
+                <div class="table-title-year">
+                    <select id="selectedYear" class="table-title-select">
+                        <option value="2018" selected="selected">2018</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                    </select> 年
+                </div>
+                <div class="table-title-month">
+                    <select id="selectedMonth" class="table-title-select">
+                        <option value="1" selected="selected">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select> 月
+                </div>
+                <div class="table-title-right">
+                    查询类型：
+                    <select id="selectedInOrOut" class="table-title-select text-right">
+                        <option selected="selected"value="3">收入和支出</option>
+                        <option value="0">收入</option>
+                        <option value="1">支出</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-12 line"></div>
+            <div class="row" id="toolbar">
+                <div class="col-sm-8">
+                    <div class="btn-group">
+                        <a class="btn btn-default btn-sm" id="refresh">
+                            <i class="fa fa-refresh"></i>
+                            刷新
+                        </a>
+                        <a class="btn btn-default btn-sm" id="edit" url="/Record/Update">
+                            <i class="fa"></i>
+                            修改
+                        </a>
+                        <a class="btn btn-default btn-sm" id="remove">
+                            <i class="fa fa-trash-o"> </i>
+                            删除
+                        </a>
+                    </div>
+
+                    <input type="hidden" id="openModal" data-toggle="modal" data-target="#recordManageModal" />
+                </div>
+                <div class="col-sm-4 text-right">
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm" placeholder="请输入搜索内容" id="search_content" />
+                        <span class="input-group-btn">
+                            <button id="serch_btn" class="btn btn-sm btn-default">
+                                搜索
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <table id="table" class="table table-condensed"
+                   data-toggle="table"
+                   data-method="get"
+                   data-url="/Report/_RecordsOfReportGrid"
+                   data-pagination="true"
+                   data-page-number="1"
+                   data-page-size="10"
+                   data-single-select="true"
+                   data-sort-name="CreateOn"
+                   data-sort-order="asc"
+                   data-content-type="application/x-www-form-urlencoded"
+                   data-side-pagination="server"
+                   data-unique-id="Id"
+                   data-click-to-select="true"
+                   data-page-list="[10,20,50]"
+                   data-query-params-type="limits"
+                   data-query-params="QueryParams">
+                <thead>
+                    <tr class="info table-info">
+                        <th data-visible="false" data-field="Id">Id</th>
+                        <th data-checkbox="true"></th>
+                        <th data-field="TypesName">类别</th>
+                        <th data-field="Source">来源</th>
+                        <th data-field="Money">金额</th>
+                        <th data-field="InOrOut" data-formatter="FormatInOrOut">类型</th>
+                        <th data-field="CreateOn">时间</th>
+                        <th data-field="Remark">备注</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div id="annualReport" class="tab-pane">
+        <div class="panel-body OPIM-panel-body form-horizontal">
+            <div class="table-title m-b-m">
+                <div class="table-title-year">
+                    <select id="selectedYear" class="table-title-select" onchange="SelectAnnualYear()">
+                        <option value="2018" selected="selected">2018</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                    </select> 年
+                </div>
+            </div>
+            <div class="col-sm-12 line"></div>
+            <table class="OPIM-table" id="inTable"
+                data-toggle="table"
+                data-method="get"
+                data-url="/Report/GetAnnulInRecords"
+               data-pagination="true"
+                   data-page-number="1"
+                   data-page-size="10"
+                   data-single-select="true"
+                   data-sort-order="asc"
+                   data-content-type="application/x-www-form-urlencoded"
+                   data-side-pagination="server"
+                   data-unique-id="Id"
+                   data-click-to-select="true"
+                   data-query-params-type="limits"
+                data-query-params="AnnualQueryParams">
+                <thead>
+                    <tr class="info table-info">
+                        <th data-field="TypeName">收入</th>
+                        <th data-field="January">一月</th>
+                        <th data-field="February">二月</th>
+                        <th data-field="March">三月</th>
+                        <th data-field="April">四月</th>
+                        <th data-field="May">五月</th>
+                        <th data-field="June">六月</th>
+                        <th data-field="July">七月</th>
+                        <th data-field="August">八月</th>
+                        <th data-field="September">九月</th>
+                        <th data-field="October">十月</th>
+                        <th data-field="November">十一月</th>
+                        <th data-field="December">十二月</th>
+                    </tr>
+                </thead>
+            </table>
+            <div class="row line"></div>
+           <table class="OPIM-table" id="outTable"
+                  data-toggle="table"
+                data-method="get"
+                data-url="/Report/GetAnnulOutRecords"
+               data-pagination="true"
+                   data-page-number="1"
+                   data-page-size="10"
+                   data-single-select="true"
+                   data-sort-order="asc"
+                   data-content-type="application/x-www-form-urlencoded"
+                   data-side-pagination="server"
+                   data-unique-id="Id"
+                   data-click-to-select="true"
+                   data-query-params-type="limits"
+                data-query-params="AnnualQueryParams">
+                <thead>
+                    <tr class="info table-info">
+                        <th data-field="TypeName">支出</th>
+                        <th data-field="January">一月</th>
+                        <th data-field="February">二月</th>
+                        <th data-field="March">三月</th>
+                        <th data-field="April">四月</th>
+                        <th data-field="May">五月</th>
+                        <th data-field="June">六月</th>
+                        <th data-field="July">七月</th>
+                        <th data-field="August">八月</th>
+                        <th data-field="September">九月</th>
+                        <th data-field="October">十月</th>
+                        <th data-field="November">十一月</th>
+                        <th data-field="December">十二月</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+@Html.Partial(@"~/Views/Report/_RecordManage.cshtml")
+<script>
+    $('#refresh').on('click', function () {
+        $('#table').bootstrapTable("refresh");
+    });
+    $('#edit').on('click', function () {
+        var url = $(this).attr("url");
+        $('#recordForm').attr("action", url)
+        var model = $('#table').bootstrapTable('getSelections');
+        if (model.length < 1) {
+            toastr.error("请先选择需要修改的信息");
+        } else {
+            openModal.click();
+            FileRecordMessage(model[0]);
+        }
+    });
+    $('#remove').on('click', function () {
+        var row = $('#table').bootstrapTable('getSelections');
+        if (row.length < 1) {
+            toastr.error("请先选择需要删除的信息");
+        } else {
+            $.ajax({
+                url: "/Record/Delete",
+                dataType: "json",
+                type: "post",
+                data: { "id": row[0].Id },
+                success: function (result) {
+                    if (result.Success) {
+                        $('#table').bootstrapTable("refresh");
+                        toastr.success("删除成功");
+                    }
+                }
+            });
+        }
+    });
+    //监听select变化
+    $('#countReport').find("select").change(function () {
+        $('#table').bootstrapTable('refresh');
+    });
+    $('#serch_btn').on('click', function () {
+        $('#table').bootstrapTable("refresh");
+    });
+    function SelectAnnualYear() {
+        $('#inTable').bootstrapTable("refresh");
+        $('#outTable').bootstrapTable("refresh");
+    }
+    function AnnualQueryParams(params) {
+        var temp = {
+            pageSize: params.pageSize,
+            pageIndex: params.pageNumber,
+            search: $('#annualReport').find("#selectedYear option:selected").val(),
+            orderType: params.sortOrder,
+            orderBy: params.sortName
+        };
+        return temp;
+    }
+    function QueryParams(params) {
+        var temp = {
+            pageSize: params.pageSize,
+            pageIndex: params.pageNumber,
+            search: $('#search_content').val(),
+            date: $('#selectedYear option:selected').val() + "/" + ConverDate($('#selectedMonth option:selected').val()),
+            inOrOut: $('#selectedInOrOut option:selected').val(),
+            orderType: params.sortOrder,
+            orderBy: params.sortName
+        };
+        return temp;
+    }
+    function FormatInOrOut(value, row, index) {
+        if (value == "0")
+            return "<lable class='label-success'>收入</lable>";
+        if (value == "1") {
+            return "<lable class='label-default'>支出</lable>";
+        }
+    }
+    function FormatTime(value, row, index) {
+        var date = new Date(parseInt(row.CreateOn.replace("/Date(", "").replace(")/", ""), 10));
+        var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+        var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+        return date.getFullYear() + "-" + month + "-" + currentDate;
+    }
+</script>

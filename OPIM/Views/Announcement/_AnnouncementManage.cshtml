@@ -1,0 +1,69 @@
+﻿@model OPIM_Common.DataModels.AnnouncementsModel
+<div class="modal fade" id="announcementManageModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="custom-closed close" data-dismiss="modal"
+                   aria-hidden="true">
+                </i>
+                <div class="">
+                    <div class="custom-login-title text-center">
+                        @*<div class="fontl" style="float:inherit">公告管理</div>*@
+                        <h3>公告管理</h3>
+                        <div class="custom-clear"></div>
+                    </div>
+                </div>
+            </div>
+            @using (Ajax.BeginForm("", "",
+               new AjaxOptions { HttpMethod = "POST",  OnSuccess = "AnnouncementSuccess", OnFailure = "AnnouncementFailure" },
+               new { @class = "form-horizontal", @role = "form", @id = "announcementForm" }))
+            {
+                @*@Html.AntiForgeryToken()*@
+                <div class="modal-body">
+                    <div class="gtco-container">
+                        @Html.HiddenFor(model=>model.Id)
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">标题</label>
+                            <div class="col-sm-8">
+                               @Html.TextBoxFor(model=>model.Title,new {@class="form-control"})
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">内容</label>
+                            <div class="col-sm-8">
+                               @Html.TextAreaFor(model => model.Contents, new { @class = "form-control", @rows=10})
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button class="btn btn-success btn-rounded" type="submit" id="submitManage"><i class="fa fa-info-circle"></i>提交操作</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script>
+
+    function FileAnnouncementMessage(model) {
+        $('#Id').val(model.Id);
+        $('#Title').val(model.Title);
+        $('#Contents').val(model.Contents);
+     }
+    function AnnouncementSuccess(result) {
+        if (result.Success) {
+            toastr.success("操作成功");
+            $('#announcementManageModal').modal("hide");
+            $('#table').bootstrapTable("refresh");
+        } else {
+            toastr.error("操作失败");
+        }
+    }
+    function AnnouncementFailure() {
+        toastr.error("数据提交失败");
+    }
+   
+</script>
