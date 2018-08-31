@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_100"
+    tools:context="com.example.wangchang.testrecharge.MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/grey_300" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:background="@drawable/recharge_phone_number"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:maxLength="11"
+                android:numeric="integer"
+                android:hint="请输入手机号"
+                android:textColor="@color/yellow_900"
+                android:textSize="20sp" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_300" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="实际支付（元）："
+                android:textColor="@color/black" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/payamount"
+                android:textColor="@color/yellow_900" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_300" />
+    <!--<android.support.v7.widget.RecyclerView
+            android:id="@+id/recylerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp" />-->
+    <!--GridView start-->
+        <GridLayout
+            android:id="@+id/GridLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:orientation="horizontal"
+            android:rowCount="3">
+            <Button
+                android:text="10元"
+                style="@style/priceCard"
+                android:clickable="true"
+                android:id="@+id/btn10"
+                android:background="@drawable/recharge_price_card" />
+            <Button
+                android:text="20元"
+                style="@style/priceCard"
+                android:id="@+id/btn20"
+                android:background="@drawable/recharge_price_card" />
+            <Button
+                android:text="30元"
+                style="@style/priceCard"
+                android:id="@+id/btn30"
+                android:background="@drawable/recharge_price_card" />
+            <Button
+                android:text="50元"
+                style="@style/priceCard"
+                android:id="@+id/btn50"
+                android:background="@drawable/recharge_price_card" />
+            <Button
+                android:text="100元"
+                style="@style/priceCard"
+                android:id="@+id/btn100"
+                android:background="@drawable/recharge_price_card" />
+            <Button
+                android:text="200元"
+                style="@style/priceCard"
+                android:id="@+id/btn200"
+                android:background="@drawable/recharge_price_card" />
+            <Button
+                android:text="500元"
+                style="@style/priceCard"
+                android:id="@+id/btn500"
+                android:background="@drawable/recharge_price_card" />
+            <Button
+                android:text="1000元"
+                style="@style/priceCard"
+                android:id="@+id/btn1000"
+                android:background="@drawable/recharge_price_card" />
+            <Button
+                android:text="2000元"
+                style="@style/priceCard"
+                android:id="@+id/btn2000"
+                android:background="@drawable/recharge_price_card" />
+        </GridLayout>
+    </LinearLayout>
+<!--GridView end-->
+    <TextView
+        android:id="@+id/tvPay"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="25dp"
+        android:background="@drawable/recharge_submit"
+        android:gravity="center"
+        android:text="立即充值"
+        android:textColor="@color/white" />
+</RelativeLayout>

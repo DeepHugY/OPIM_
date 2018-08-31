@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!--firstPage-->
+  <string name="app_name">FirstPage</string>
+  <string name="firstPage_title">纵联科技智能平台</string>
+  <string name="firstPage_phone">手机号登陆</string>
+  <string name="firstPage_wechat">微信号登陆</string>
+  <string name="firstPage_otherWay">其他方式</string>
+  <string name="firstPage_goLogin">已有账号，直接登录</string>
+  
+  <!--Regist-->
+  <string name="regist_phone">手机号</string>
+  <string name="regist_vCode">验证码</string>
+  <string name="regist_getVCode">获取验证码</string>
+  <string name="regist_password">密码</string>
+  <string name="regist_btn">注 册</string>
+  
+  <!--Login-->
+  <string name="login_account">账号</string>
+  <string name="login_password">密码</string>
+  <string name="login_btn">登 陆</string>
+  <string name="forgetPassword">忘记密码</string>
+  <string name="goRegest">快速注册</string>
+</resources>

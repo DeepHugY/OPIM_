@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <style name="FirstAndroid" parent="@android:style/Theme.Holo.Light">
+    <item name="android:windowBackground">@color/turquoise</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:statusBarColor">@color/turquoise</item>
+    <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+  </style>
+
+  <style name="Login" parent="@android:style/Theme.Wallpaper.NoTitleBar">
+    <item name="android:windowBackground">@color/white</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:statusBarColor">@color/white</item>
+    <item name="android:colorAccent">@color/orange</item>
+    <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+  </style>
+  <!--启动界面-->
+  <style name="Theme.Splash" parent="android:Theme.Holo.Light">
+    <item name="android:windowBackground">@drawable/start_screen</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowIsTranslucent">false</item>
+    <item name="android:windowIsFloating">false</item>
+    <item name="android:backgroundDimEnabled">true</item>
+  </style>
+  <!--登录界面的输入框样式-->
+  <style name="login_input" parent="@style/Login">
+    <item name="android:layout_height">50dp</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:background">@drawable/login_input</item>
+    <item name="android:padding">10dp</item>
+    <!--<item name="android:layout_marginLeft">60dp</item>
+    <item name="android:layout_marginRight">60dp</item>
+    <item name="android:layout_marginTop">20dp</item>-->
+  </style>
+  <!--充值界面价格展示卡样式-->
+  <style name="priceCard">
+    <item name="android:layout_width">105dp</item>
+    <item name="android:layout_height">60dp</item>
+    <item name="android:background">@color/grey_200</item>
+    <item name="android:gravity">center</item>
+    <item name="android:textSize">25sp</item>
+    <item name="android:layout_margin">10dp</item>
+    <item name="android:padding">10dp</item>
+    <item name="android:textColor">@color/black</item>
+  </style>
+  <!--开卡页面行样式-->
+  <style name="openCardLiner">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">40dp</item>
+    <item name="android:minHeight">25dp</item>
+    <item name="android:minWidth">25dp</item>
+    <item name="android:background">@color/white</item>
+    <item name="android:gravity">center</item>
+    <item name="android:textSize">25sp</item>
+    <item name="android:layout_margin">10dp</item>
+    <item name="android:textColor">@color/black</item>
+  </style>
+  <!--开卡页面显示label样式-->
+  <style name="openCardLabel">
+    <item name="android:layout_width">70dp</item>
+    <item name="android:layout_height">40dp</item>
+    <item name="android:minHeight">25dp</item>
+    <item name="android:minWidth">25dp</item>
+    <item name="android:background">@color/white</item>
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:textSize">16sp</item>
+    <item name="android:layout_margin">10dp</item>
+    <item name="android:textColor">@color/black</item>
+  </style>
+  <!--开卡页面input样式-->
+  <style name="openCardInput">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">40dp</item>
+    <item name="android:minHeight">25dp</item>
+    <item name="android:minWidth">25dp</item>
+    <item name="android:textSize">18sp</item>
+    <item name="android:paddingLeft">5dp</item>
+    <item name="android:background">@drawable/opencard_input</item>
+    <item name="android:textColor">@color/black</item>
+  </style>
+  <!--个人中心 linearLayout 样式-->
+  <style name="personalLinear">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_margin">10dp</item>
+    <item name="android:background">@drawable/personal_linear</item>
+    <item name="android:padding">10dp</item>
+  </style>
+
+</resources>
+

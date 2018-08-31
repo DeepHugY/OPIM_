@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_300">
+<!--个人信息-->
+    <LinearLayout
+        style="@style/personalLinear">
+        <ImageView
+            android:src="@mipmap/connection"
+            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:layout_marginRight="20dp" />
+        <LinearLayout
+            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/linearLayout1">
+            <TextView
+                android:layout_height="30dp"
+                android:layout_width="match_parent"
+                android:text="Suany"
+                android:gravity="center_vertical"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:id="@+id/textView1" />
+            <TextView
+                android:layout_height="20dp"
+                android:layout_width="match_parent"
+                android:text="15518980152"
+                android:gravity="center_vertical"
+                android:textSize="13sp"
+                android:textColor="@color/grey_800"
+                android:id="@+id/textView2" />
+        </LinearLayout>
+    </LinearLayout>
+<!--钱包-->
+    <LinearLayout
+        style="@style/personalLinear"
+        android:orientation="vertical">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@drawable/personal_bottom_border">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="310dp"
+                android:text="钱包"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:paddingTop="0dp" />
+            <ImageView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:src="@mipmap/arrow_right_small"
+                android:padding="10dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="310dp"
+                android:text="交易记录"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:paddingBottom="0dp" />
+            <ImageView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:src="@mipmap/arrow_right_small"
+                android:padding="10dp" />
+        </LinearLayout>
+    </LinearLayout>
+<!--交易记录-->
+    <LinearLayout
+        style="@style/personalLinear"
+        android:orientation="vertical">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@drawable/personal_bottom_border">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="310dp"
+                android:text="充值记录"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:paddingTop="0dp" />
+            <ImageView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:src="@mipmap/arrow_right_small"
+                android:padding="10dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@drawable/personal_bottom_border">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="310dp"
+                android:text="开卡记录"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:paddingBottom="0dp" />
+            <ImageView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:src="@mipmap/arrow_right_small"
+                android:padding="10dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="310dp"
+                android:text="激活记录"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:paddingBottom="0dp" />
+            <ImageView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:src="@mipmap/arrow_right_small"
+                android:padding="10dp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

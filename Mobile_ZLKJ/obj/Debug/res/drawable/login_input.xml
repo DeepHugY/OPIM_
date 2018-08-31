@@ -1,0 +1,1 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"><!--上面的为背景的底层--><item><shape android:shape="rectangle"><solid android:color="@color/orange" /></shape></item><!--背景上面的图层 让底部的背景露出来4dp的高度--><item android:bottom="1dp"><shape android:shape="rectangle"><solid android:color="@color/white" /></shape></item></layer-list>

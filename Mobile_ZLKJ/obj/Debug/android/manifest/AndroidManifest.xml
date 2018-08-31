@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="NavBar.NavBar" android:versionCode="1" android:versionName="1.0" android:installLocation="auto">
+  <!--suppress UsesMinSdkAttributes-->
+  <uses-sdk android:minSdkVersion="19" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <application android:allowBackup="true" android:label="@string/app_name" android:theme="@style/Login" android:name="android.app.Application" android:debuggable="true">
+    <activity android:label="注册" android:name="md58150760f14d47565e3bba7e7ed5152af.RegistActivity" />
+    <activity android:label="NavBar" android:name="md58150760f14d47565e3bba7e7ed5152af.MainActivity" />
+    <activity android:label="Login" android:name="md581ebedf4e4c1d83b85a1a306e76511a3.LoginActivity" />
+    <activity android:configChanges="orientation|screenSize" android:noHistory="true" android:theme="@style/Theme.Splash" android:name="md581ebedf4e4c1d83b85a1a306e76511a3.StartScreen">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <activity android:label="LoginDemo" android:name="md5685c640e5a95ce80ab7c3eadf03d7b95.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <provider android:name="mono.MonoRuntimeProvider" android:exported="false" android:initOrder="2147483647" android:authorities="NavBar.NavBar.mono.MonoRuntimeProvider.__mono_init__" />
+    <!--suppress ExportedReceiver-->
+    <receiver android:name="mono.android.Seppuku">
+      <intent-filter>
+        <action android:name="mono.android.intent.action.SEPPUKU" />
+        <category android:name="mono.android.intent.category.SEPPUKU.NavBar.NavBar" />
+      </intent-filter>
+    </receiver>
+  </application>
+</manifest>
