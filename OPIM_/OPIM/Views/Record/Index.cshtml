@@ -1,0 +1,202 @@
+﻿
+@{
+    ViewBag.Title = "首页";
+}
+
+<div class="panel-body OPIM-panel-body form-horizontal">
+    <div class="table-title m-b-m row">
+        <div class="table-title-year">
+            <select id="selectedYear" class="table-title-select">
+                <option value="2018" selected="selected">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+            </select> 年
+        </div>
+        <div class="table-title-month">
+            <select id="selectedMonth" class="table-title-select">
+                <option value="1" selected="selected">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select> 月
+        </div>
+        <div class="table-title-month">
+            <select id="selectedDay" class="table-title-select">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="12">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+            </select> 日
+        </div>
+        <div class="table-title-right text-right">
+            <input type="button" class="btn btn-default" value="同步支付宝账单" data-toggle="modal" data-target="#upFileModal" />
+        </div>
+    </div>
+    <div class="row text-right">
+        <div class="col-sm-12">
+            @Html.ActionLink("管理类目", "Index", "Types", new { area = "" }, new { @style = "padding-right:10px;" })
+        </div>
+    </div>
+    <div class="row items-box">
+        <ul>
+            @for (int i = 0; i < ViewBag.TypesList.Count; i++)
+            {
+                <li class="items-li">
+                    <a class="block text-md" data-type-id="@ViewBag.TypesList[i].Id">
+                        @ViewBag.TypesList[i].Name
+                    </a>
+                </li>
+            }
+        </ul>
+        <input type="hidden" id="typeId" />
+    </div>
+    <div class="row line m-b-m"></div>
+    <div class="row ">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label class="col-sm-1 control-label" style="padding-right:0;padding-top:0px;padding-left:50px; font-size:18px;">备：注：</label>
+                <div class="col-sm-5 text-right">
+                    <textarea id="remarks" class="form-control" placeholder=""></textarea>
+                </div>
+                <div class="clo-sm-6">
+                    <label class="control-label col-sm-1 text-right" style="padding-right:0;padding-top:0px;padding-left:35px; font-size:18px;">金：额：</label>
+                    <div class="col-sm-2" style="padding:0 0px">
+                        <input id="money" type="text" class="form-control" style="height:50px;font-size:20px" placeholder="" />
+                    </div>
+                    <label class="control-label col-sm-1 text-left" style="text-align:left;padding-left:0;padding-top:30px;">元</label>
+                    <input id="submitRecord" type="button" class="btn btn-default" style="height:50px;font-size:20px; padding:0 30px;" value="记一笔" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row line m-b-m"></div>
+    <div class="col-sm-12 m-b-m">
+        <div class="table-responsive">
+            <table id="table" class="table table-condensed"
+                   data-classes="table-no-bordered"
+                   data-toggle="table"
+                   data-method="get"
+                   data-url="/Record/_RecordsGrid"
+                   data-pagination="true"
+                   data-page-number="1"
+                   data-page-size="5"
+                   data-single-select="true"
+                   data-sort-stable="true"
+                   data-sort-name="CreateOn"
+                   data-sort-order="desc"
+                   data-content-type="application/x-www-form-urlencoded"
+                   data-side-pagination="server"
+                   data-unique-id="Id"
+                   data-click-to-select="true"
+                   data-page-list="[5,10,20,50]"
+                   data-query-params-type="limits"
+                   data-query-params="QueryParams">
+                <thead>
+                    <tr class="info table-info">
+                        <th data-visible="false" data-field="Id">Id</th>
+                        <th data-field="TypesName">类别</th>
+                        <th data-field="Source">来源</th>
+                        <th data-field="Money">金额</th>
+                        <th data-field="InOrOut" data-formatter="FormatInOrOut">类型</th>
+                        <th data-field="CreateOn">时间</th>
+                        <th data-field="Remark">备注</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+@Html.Partial(@"~/Views/Record/_UpFile.cshtml")
+<script>
+    $(function () {
+        toastr.options.positionClass = 'toast-top-center';
+    })
+    $("#submitRecord").on('click', function () {
+        var typeId = $('#typeId').val();
+        var remark = $('#remarks').val();
+        var money = $('#money').val();
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            url: '/Record/Add',
+            data: { money: money, remark: remark, typeId: typeId },
+            success: function (result) {
+                if (result.Success) {
+                    $('#table').bootstrapTable('refresh');
+                    toastr.success('添加成功');
+                } else {
+                    toastr.error('添加失败');
+                }
+            },
+        });
+    });
+
+    $('.items-li').on('click', function () {
+        var typeId = $(this).find('a').data('typeId');
+        $('#typeId').val(typeId);
+        $(this).addClass('items-checked').siblings().removeClass("items-checked");
+    });
+    //监听select变化
+    $('select').change(function () {
+        $('#table').bootstrapTable('refresh');
+    });
+    function QueryParams(params) {
+        var temp = {
+            pageSize: params.pageSize,
+            pageIndex: params.pageNumber,
+            search: "",
+            date: $('#selectedYear option:selected').val() + "/" + ConverDate($('#selectedMonth option:selected').val()) + "/" + ConverDate($('#selectedDay option:selected').val()),
+            orderType: params.sortOrder,
+            orderBy: params.sortName
+        };
+        return temp;
+    }
+    function FormatInOrOut(value, row, index) {
+        if (value == "0")
+            return "<lable class='label-success'>收入</lable>";
+        if (value == "1") {
+            return "<lable class='label-default'>支出</lable>";
+        }
+    }
+    function FormatTime(value, row, index) {
+        var date = new Date(parseInt(row.CreateOn.replace("/Date(", "").replace(")/", ""), 10));
+        var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+        var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+        return date.getFullYear() + "-" + month + "-" + currentDate;
+    }
+</script>

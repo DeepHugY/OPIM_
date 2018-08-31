@@ -1,0 +1,150 @@
+﻿
+@{
+    ViewBag.Title = "报表";
+}
+<div class="panel-body OPIM-panel-body form-horizontal">
+    <div class="table-title m-b-m">
+        <div class="table-title-year">
+            <select id="selectedYear" class="table-title-select">
+                <option value="2018" selected="selected">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+            </select> 年
+        </div>
+        <div class="table-title-month">
+            <select id="selectedMonth" class="table-title-select">
+                <option value="1" selected="selected">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select> 月
+        </div>
+        <div class="table-title-right">
+            本月总预算：<strong>1000</strong>元
+        </div>
+    </div>
+    <div class="col-sm-12 line"></div>
+    <div class="col-sm-12 m-t-m">
+        <ul class="budget-table-head">
+            <li><span>类目</span></li>
+            <li><span>收支类型</span></li>
+            <li><span>本月实际收支</span></li>
+            <li><span>本月预算</span></li>
+            <div class="clear"></div>
+        </ul>
+        <div class="budget-table-body" id="ul_Budget">
+            <div v-for="item in budgetList">
+                <ul>
+                    <li v-if="isId">{{item.Id}}</li>
+                    <li>[<span>{{item.TypeName}}</span>]</li>
+                    <li>
+                        <span v-if="item.InOrOut==0">收入</span>
+                        <span v-if="item.InOrOut==1">支出</span>
+                    </li>
+                    <li><span>0</span></li>
+                    <li>
+                        <span v-if="!item.IsEdit" v-bind:title="title" v-on:dblclick="dbClickToEdit(item)">{{item.Money}}</span>
+                        <input v-if="item.IsEdit" class="form-control" v-on:keyup.enter="changeBudget(item)" v-model="current" style="margin-left:50px"/>
+                    </li>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="col-sm-12">
+        <input class="btn btn-default col-sm-offset-1 m-t-m" data-toggle="modal" data-target="#addBudgetModal" id="openMadal" type="button" value="添加预算项" />
+    </div>
+</div>
+@Html.Partial(@"~/Views/Budget/_AddBudgetItem.cshtml")
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var selectedYear = $('#selectedYear option:selected').val();
+    var selectedMonth = $('#selectedMonth option:selected').val();
+
+    var vue = new Vue({
+        el: '#ul_Budget',
+        data: {
+            isNull: true,
+            isId: false,
+            
+            title: "双击修改预算",
+            budgetList: [
+            ],
+            current:"",
+        },
+        mounted: function () {
+            this.getDatas();
+        },
+        methods: {
+            getDatas: function () {
+                $.ajax({
+                    url: '/Budget/GetBudgetList',
+                    dataType: 'json',
+                    type: 'post',
+                    data: { year: selectedYear, month: selectedMonth },
+                    success: function (result) {
+                        if (result.Success) {
+                            if (result.Count > 0) {
+                                vue.isNull = false;
+                                for (var i = 0; i < result.Count; i++) {
+                                    vue.budgetList.push(result.List[i]);
+                                }
+                            }
+                        }
+                    },
+                });
+            },
+            dbClickToEdit: function (item) {
+                item.IsEdit = true;
+            },
+            changeBudget: function (item) {
+                item.IsEdit = false;
+                if (vue.current != "")
+                {
+                    item.Money = vue.current;
+                    $.ajax({
+                        url: '/Budget/Update',
+                        type: 'post',
+                        dataType: 'json',
+                        data: { id: item.Id, money: item.Money },
+                        success: function (result) {
+                            if (result.Success)
+                                toastr.success('修改成功');
+                        },
+                        complete: function () {
+                            vue.current = "";
+                        }
+                    });
+                }
+            }
+        },
+    });
+    $('#openMadal').on('click', function () {
+
+        var selectTypes = $('#selectTypes');
+        $.ajax({
+            url: '/Types/GetTypesWithoutBudget',
+            dataType: 'json',
+            type: 'post',
+            data: { year: selectedYear, month: selectedMonth },
+            success: function (result) {
+                if (result.Success) {
+                    for (var i = 0; i < result.Count; i++) {
+                        var str = '<option value=' + result.List[i].Id + '>' + result.List[i].Name + '</option>';
+                        selectTypes.append(str);
+                    }
+                }
+            }
+        });
+    });
+</script>

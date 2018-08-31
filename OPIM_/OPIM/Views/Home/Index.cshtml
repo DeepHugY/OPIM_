@@ -1,0 +1,54 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Online Personal Income Management System</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <link href="~/Content/Home/OPIM-home.css" rel="stylesheet" />
+    <link href="~/Content/Home/custom.css" rel="stylesheet" />
+    <link href="~/Content/nprogress.css" rel="stylesheet" />
+
+    <script src="~/scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/scripts/bootstrap.js"></script>
+    <script src="~/scripts/toastr.js"></script>
+    <script src="~/scripts/nprogress.js"></script>
+    <script src="~/scripts/jquery.validate.min.js"></script>
+    @*<script src="~/scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/scripts/jquery.validate-vsdoc.js"></script>*@
+    <script src="~/scripts/validate/validate-register.js"></script>
+</head>
+<body class="fullscreen">
+    <div class="align-transform">
+        <div class="row">
+            <div class="conter_content col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 text-center">
+                <h1>Welcome To OPIM</h1>
+                <p style="margin-bottom:50px;">The Onine Personal Income Management System</p>
+                <a class="OPIM-btn  OPIM-btn-lg " data-toggle="modal" data-target="#registerModal">注册</a>
+                <a class="OPIM-btn  OPIM-btn-lg " data-toggle="modal" data-target="#loginModal">登录</a>
+            </div>
+        </div>
+    </div>
+</body>
+@Html.Partial("~/Views/Home/_Regist.cshtml");
+@Html.Partial("~/Views/Home/_Login.cshtml");
+</html>
+
+<script>
+    $(function () {
+        toastr.options = {
+            positionClass: "toast-top-center"
+        };
+        NProgress.configure({
+            parent: '#modal-body',
+            showSpinner: false
+        });
+    })
+</script>

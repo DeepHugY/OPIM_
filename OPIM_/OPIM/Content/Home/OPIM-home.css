@@ -1,0 +1,95 @@
+﻿body {
+    margin: 0 0;
+    padding: 0 0;
+}
+
+.fullscreen {
+    height: 95vh;
+    max-height: 95%;
+    width: 95%;
+    background-image: url('../../Image/backgrpund.jpg');
+    /*background-image: url(https://cdn.colorlib.com/shapely/wp-content/uploads/sites/12/2016/03/photo-1443527216320-7e744084f5a7-1.jpg);*/
+}
+
+.align-transform {
+    position: relative;
+    transform: translate3d(0px, -50%, 0px);
+    -webkit-transform: translate3d(0px, -50%, 0px);
+    top: 30%;
+    z-index: 10;
+}
+
+.conter_content {
+    position: relative;
+    z-index: 20;
+}
+
+h1, p {
+    margin-bottom: 50px;
+    margin-top: 0px;
+    padding: 0;
+    color: white;
+}
+
+h1 {
+    font-size: 65px;
+    line-height: 64px;
+    font-weight: 400;
+}
+
+p {
+    font-size: 30px;
+    font-weight: 400;
+    margin-bottom:100px!important;
+}
+
+.OPIM-btn {
+    color:#f6f8f8;
+    border: 2px solid #f6f8f8;
+    padding: 0 26px;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    text-align: center;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    margin-right: 8px;
+    margin-bottom: 24px;
+    white-space: normal;
+}
+
+    .OPIM-btn:hover, .OPIM-btn:focus {
+        /*color: black;*/
+        font-size: 23px;
+        background-color: #f6f8f8;
+        text-decoration: none;
+    }
+
+.OPIM-btn-lg {
+    line-height: 24px;
+    min-width: 200px;
+    padding-bottom: 13px;
+    padding-top: 13px;
+    margin: 0 10px;
+}
+
+.modal-closed {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background: url('../../Image/login_icon.png') no-repeat -220px -315px;
+    -webkit-transition: all 0.4s ease-out;
+    -moz-transition: all 0.4s ease-out;
+    -o-transition: all 0.4s ease-out;
+    transition: all 0.4s ease-out;
+    opacity: 0.9;
+}
+
+    .modal-closed:hover {
+        transform: rotate(-180deg);
+        -moz-transform: rotate(-180deg);
+        -webkit-transform: rotate(-180deg);
+        -o-transform: rotate(-180deg);
+    }
